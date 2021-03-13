@@ -3,3 +3,10 @@
 
 # golang output binary directory
 bin
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
