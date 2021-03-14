@@ -105,3 +105,11 @@ func (clubhouse Clubhouse) GetProfileByUserID(userID string) (map[string]interfa
 	}
 	return profile, nil
 }
+
+func (clubhouse Clubhouse) GetProfileByUsername(username string) (map[string]interface{}, error) {
+	userID, err := clubhouse.GetUserIDByUsername(username)
+	if err != nil {
+		return nil, err
+	}
+	return clubhouse.GetProfileByUserID(userID)
+}
