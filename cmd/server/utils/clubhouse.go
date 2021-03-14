@@ -7,6 +7,16 @@ import (
 
 const API_URL = "https://www.clubhouseapi.com/api"
 
+func extractUserIDByUsername(users []interface{}, username string) (string, error) {
+	for _, user := range users {
+		user_info := user.(map[string]interface{})
+		if username == user_info["username"] {
+			return user_info["user_id"].(string), nil
+		}
+	}
+	return "", fmt.Errorf("No such user")
+}
+
 type Clubhouse struct {
 	uuid                  string
 	userID                int
