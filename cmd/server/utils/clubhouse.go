@@ -71,3 +71,21 @@ func NewClubhouse(uuid string, userID int, authToken string) *Clubhouse {
 	}
 	return &clubhouse
 }
+
+func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) {
+	const SEARCH_ENDPOINT = "/search_users"
+
+	body := mapToBody(map[string]interface{}{"query": username})
+	req, err := http.NewRequest("POST", API_URL+SEARCH_ENDPOINT, body)
+	if err != nil {
+		return "", err
+	}
+
+	resp, err := clubhouse.authenticatedRequest(req)
+	if err != nil {
+		return "", err
+	}
+
+	users := (resp["users"].([]interface{}))
+	return extractUserIDByUsername(users, username)
+}
