@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -41,4 +42,22 @@ func (clubhouse Clubhouse) authenticatedRequest(req *http.Request) (map[string]i
 		return nil, err
 	}
 	return responseBodyToMap(resp.Body)
+}
+
+func NewClubhouse(uuid string, userID int, authToken string) *Clubhouse {
+	clubhouse := Clubhouse{uuid: uuid, userID: userID, authToken: authToken}
+	clubhouse.HEADERS = map[string]string{
+		"User-Agent":    "clubhouse/269 (iPhone; iOS 14.1; Scale/3.00)",
+		"CH-Languages":  "en-US",
+		"CH-Locale":     "en_US",
+		"CH-AppVersion": "0.2.15",
+		"CH-AppBuild":   "269",
+		"CH-DeviceId":   uuid,
+		"Content-Type":  "application/json",
+	}
+	clubhouse.AUTHENTICATED_HEADERS = map[string]string{
+		"CH-UserID":     fmt.Sprintf("%d", userID),
+		"Authorization": fmt.Sprintf("Token %s", authToken),
+	}
+	return &clubhouse
 }
