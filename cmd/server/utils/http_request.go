@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -20,4 +21,9 @@ func responseBodyToMap(body io.ReadCloser) (map[string]interface{}, error) {
 		return nil, err
 	}
 	return resp, nil
+}
+
+func mapToBody(mapBody map[string]interface{}) *bytes.Buffer {
+	marshaledBody, _ := json.Marshal(mapBody)
+	return bytes.NewBuffer(marshaledBody)
 }
