@@ -89,3 +89,19 @@ func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) 
 	users := (resp["users"].([]interface{}))
 	return extractUserIDByUsername(users, username)
 }
+
+func (clubhouse Clubhouse) GetProfileByUserID(userID string) (map[string]interface{}, error) {
+	const GET_PROFILE_ENDPOINT = "/get_profile"
+
+	body := mapToBody(map[string]interface{}{"user_id": userID})
+	req, err := http.NewRequest("POST", API_URL+GET_PROFILE_ENDPOINT, body)
+	if err != nil {
+		return nil, err
+	}
+
+	profile, err := clubhouse.authenticatedRequest(req)
+	if err != nil {
+		return nil, err
+	}
+	return profile, nil
+}
