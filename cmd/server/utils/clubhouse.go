@@ -30,6 +30,7 @@ func extractUserListFromSearchResult(result map[string]interface{}) ([]interface
 	return nil, fmt.Errorf(fmt.Sprintf("Error while retrieving the profile. %+v", result))
 }
 
+// Clubhouse is a api client for the clubhouse API
 type Clubhouse struct {
 	uuid                  string
 	userID                int
@@ -62,6 +63,7 @@ func (clubhouse Clubhouse) authenticatedRequest(req *http.Request) (map[string]i
 	return clubhouse.request(req)
 }
 
+// SingletonClubhouse returns clubhouseInstance, using thread-safe singleton pattern
 func SingletonClubhouse() *Clubhouse {
 	once.Do(func() {
 		clubhouseInstance = &Clubhouse{}
@@ -69,6 +71,7 @@ func SingletonClubhouse() *Clubhouse {
 	return clubhouseInstance
 }
 
+// SetAccount sets basic information of clubhouse
 func (clubhouse *Clubhouse) SetAccount(uuid string, userID int, authToken string) {
 	clubhouse.uuid = uuid
 	clubhouse.userID = userID
@@ -88,6 +91,7 @@ func (clubhouse *Clubhouse) SetAccount(uuid string, userID int, authToken string
 	}
 }
 
+// GetUserIDByUsername retrieves userID from clubhouse API by given username
 func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) {
 	const SEARCH_ENDPOINT = "/search_users"
 
@@ -110,6 +114,7 @@ func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) 
 	return extractUserIDByUsername(users, username)
 }
 
+// GetProfileByUserID retrieves profile from clubhouse API by given userID
 func (clubhouse Clubhouse) GetProfileByUserID(userID string) (map[string]interface{}, error) {
 	const GET_PROFILE_ENDPOINT = "/get_profile"
 
@@ -123,9 +128,10 @@ func (clubhouse Clubhouse) GetProfileByUserID(userID string) (map[string]interfa
 	if err != nil {
 		return nil, err
 	}
-	return profile, nil
+	return profile["user_profile"].(map[string]interface{}), nil
 }
 
+// GetProfileByUsername retrieves profile from clubhouse API by given username
 func (clubhouse Clubhouse) GetProfileByUsername(username string) (map[string]interface{}, error) {
 	userID, err := clubhouse.GetUserIDByUsername(username)
 	if err != nil {
