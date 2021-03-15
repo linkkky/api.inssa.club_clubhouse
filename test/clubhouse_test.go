@@ -4,6 +4,9 @@ import (
 	"inssa_club_clubhouse_backend/cmd/server/utils"
 	"inssa_club_clubhouse_backend/configs"
 	"strconv"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const notExistingUsername = "notexistinguser!@#$%^&*()(*&^%$#@!"
@@ -21,3 +24,10 @@ func setupClubhouseProperly() {
 }
 
 // tools for convenient test
+
+func getUserIDByUsernameWithWrongAuthTokenTest(t *testing.T) {
+	clubhouse.SetAccount("123", 123, "123")
+	_, err := clubhouse.GetUserIDByUsername("yeon.gyu.kim")
+	assert.NotEqual(t, nil, err)
+	setupClubhouseProperly()
+}
