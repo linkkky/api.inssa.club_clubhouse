@@ -90,7 +90,11 @@ func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) 
 		return "", err
 	}
 
-	users := (resp["users"].([]interface{}))
+	users, err := extractUserListFromSearchResult(resp)
+	if err != nil {
+		return "", nil
+	}
+
 	return extractUserIDByUsername(users, username)
 }
 
