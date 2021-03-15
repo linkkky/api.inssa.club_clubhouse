@@ -31,3 +31,8 @@ func getUserIDByUsernameWithWrongAuthTokenTest(t *testing.T) {
 	assert.NotEqual(t, nil, err)
 	setupClubhouseProperly()
 }
+
+func getUserIDByUsernameOfNotExistingUserTest(t *testing.T) {
+	_, err := clubhouse.GetUserIDByUsername(notExistingUsername)
+	assert.NotEqual(t, nil, err)
+}
