@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"inssa_club_clubhouse_backend/cmd/server/models"
 	"inssa_club_clubhouse_backend/cmd/server/utils"
+	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/kamva/mgm/v3"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
@@ -48,4 +50,23 @@ func getProfile(username string) (models.ClubhouseProfile, error) {
 
 	return *clubhouseProfile, nil
 	// validate updated_at
+}
+
+// GetProfile godoc
+// @Summary Retrieve a profile from clubhouse by given username
+// @Description Retrieve a profile from clubhouse by given username
+// @Accept  json
+// @Produce  json
+// @Param username path string true "Username"
+// @Success 200 {object} models.ClubhouseProfileResponse
+// @Failure 404
+// @Router /profile/:username [get]
+func (ctrler *Controller) GetProfile(c *gin.Context) {
+	USERNAME := c.Param("username")
+	clubhouseProfile, err := getProfile(USERNAME)
+	if err != nil {
+		c.Data(http.StatusNotFound, gin.MIMEHTML, nil)
+		return
+	}
+	c.JSON(http.StatusOK, clubhouseProfile)
 }
