@@ -3,9 +3,13 @@ package utils
 import (
 	"fmt"
 	"net/http"
+	"sync"
 )
 
 const API_URL = "https://www.clubhouseapi.com/api"
+
+var clubhouseInstance *Clubhouse
+var once sync.Once
 
 func extractUserIDByUsername(users []interface{}, username string) (string, error) {
 	for _, user := range users {
@@ -58,8 +62,13 @@ func (clubhouse Clubhouse) authenticatedRequest(req *http.Request) (map[string]i
 	return clubhouse.request(req)
 }
 
-func NewClubhouse(uuid string, userID int, authToken string) *Clubhouse {
-	clubhouse := Clubhouse{uuid: uuid, userID: userID, authToken: authToken}
+func SingletonClubhouse() *Clubhouse {
+	once.Do(func() {
+		clubhouseInstance = &Clubhouse{}
+	})
+	return clubhouseInstance
+}
+
 func (clubhouse *Clubhouse) SetAccount(uuid string, userID int, authToken string) {
 	clubhouse.uuid = uuid
 	clubhouse.userID = userID
