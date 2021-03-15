@@ -62,3 +62,10 @@ func getProfileByUserIDTest(t *testing.T) {
 }
 
 // GetProfileByUserID tests
+
+func getProfileByUsernameWithWrongAuthTokenTest(t *testing.T) {
+	clubhouse.SetAccount("123", 123, "123")
+	_, err := clubhouse.GetProfileByUserID("yeon.gyu.kim")
+	assert.NotEqual(t, nil, err)
+	setupClubhouseProperly()
+}
