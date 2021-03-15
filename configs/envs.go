@@ -16,6 +16,7 @@ func getEnv(envName string, defaultValue string) string {
 
 // Envs has values for environment variables and the defaults for them
 var Envs = map[string]string{
+	"SERVER_PORT":                  getEnv("PORT", "8080"),
 	"CLUBHOUSE_ACCOUNT_UUID":       getEnv("CLUBHOUSE_ACCOUNT_UUID", "E656C404-FC76-43F1-816D-2C4F15C4931E"),
 	"CLUBHOUSE_ACCOUNT_USER_ID":    getEnv("CLUBHOUSE_ACCOUNT_USER_ID", "1234"),
 	"CLUBHOUSE_ACCOUNT_AUTH_TOKEN": getEnv("CLUBHOUSE_ACCOUNT_AUTH_TOKEN", "24204e84df89ba376adf588e3a045c326e6023c2"),
