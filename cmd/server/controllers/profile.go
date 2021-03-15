@@ -3,8 +3,11 @@ package controllers
 import (
 	"fmt"
 	"inssa_club_clubhouse_backend/cmd/server/models"
+	"inssa_club_clubhouse_backend/cmd/server/utils"
+	"time"
 
 	"github.com/kamva/mgm/v3"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -18,4 +21,31 @@ func getProfileFromDB(username string) (models.ClubhouseProfile, error) {
 		return models.ClubhouseProfile{}, fmt.Errorf("No such user")
 	}
 	return result[0], nil
+}
+
+func getProfile(username string) (models.ClubhouseProfile, error) {
+	// get data from db
+	profileDocument, err := getProfileFromDB(username)
+	if err == nil {
+		updatedAt := profileDocument.UpdatedAt.Add(time.Hour * 2)
+		currentTime := time.Now()
+		if currentTime.Before(updatedAt) { // if the document updated within 2 hours
+			return profileDocument, nil
+		}
+	}
+
+	// if the cached data is not usable, query the data and cache it
+	clubhouse := utils.SingletonClubhouse()
+	profile, err := clubhouse.GetProfileByUsername(username)
+	if err != nil {
+		logrus.Error(err)
+		return models.ClubhouseProfile{}, err
+	}
+	clubhouseProfile := models.NewClubhouseProfile(profile)
+
+	//save to db
+	err = mgm.Coll(clubhouseProfile).Create(clubhouseProfile)
+
+	return *clubhouseProfile, nil
+	// validate updated_at
 }
