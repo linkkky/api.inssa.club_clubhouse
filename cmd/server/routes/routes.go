@@ -16,6 +16,8 @@ type RouteInfo struct {
 // GetRoutes is a function which returns the information of routes
 func GetRoutes() []RouteInfo {
 	c := controllers.NewController()
-	routeInfo := []RouteInfo{}
+	routeInfo := []RouteInfo{
+		{Method: "GET", Path: "/profile/:username", Handler: c.GetProfile},
+	}
 	return routeInfo
 }
