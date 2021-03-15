@@ -81,3 +81,21 @@ func getProfileByUsernameTest(t *testing.T) {
 }
 
 // GetProfileByUserID tests
+
+func TestClubhouse(t *testing.T) {
+	t.Run("GetUserIDByUsername", func(t *testing.T) {
+		t.Run("Retrieving a profile with wrong auth token", getUserIDByUsernameWithWrongAuthTokenTest)
+		t.Run("Retrieving the profile of not existing user should fail", getUserIDByUsernameOfNotExistingUserTest)
+		t.Run("Retrieving the profile of yeon.gyu.kim should success", getUserIDByUsernameTest)
+	})
+	t.Run("GetProfileByUserID", func(t *testing.T) {
+		t.Run("Retrieving a profile with wrong auth token", getProfileByUserIDWithWrongAuthTokenTest)
+		t.Run("Retrieving the profile of not existing user should fail", getProfileByUserIDOfNotExistingUserTest)
+		t.Run("Retrieving the profile of 711498010(yeon.gyu.kim) should success", getProfileByUserIDTest)
+	})
+	t.Run("GetProfileByUsername", func(t *testing.T) {
+		t.Run("Retrieving a profile with wrong auth token", getProfileByUsernameWithWrongAuthTokenTest)
+		t.Run("Retrieving the profile of not existing user should fail", getProfileByUsernameOfNotExistingUserTest)
+		t.Run("Retrieving the profile of 711498010(yeon.gyu.kim) should success", getProfileByUsernameTest)
+	})
+}
