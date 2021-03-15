@@ -60,6 +60,10 @@ func (clubhouse Clubhouse) authenticatedRequest(req *http.Request) (map[string]i
 
 func NewClubhouse(uuid string, userID int, authToken string) *Clubhouse {
 	clubhouse := Clubhouse{uuid: uuid, userID: userID, authToken: authToken}
+func (clubhouse *Clubhouse) SetAccount(uuid string, userID int, authToken string) {
+	clubhouse.uuid = uuid
+	clubhouse.userID = userID
+	clubhouse.authToken = authToken
 	clubhouse.HEADERS = map[string]string{
 		"User-Agent":    "clubhouse/269 (iPhone; iOS 14.1; Scale/3.00)",
 		"CH-Languages":  "en-US",
@@ -73,7 +77,6 @@ func NewClubhouse(uuid string, userID int, authToken string) *Clubhouse {
 		"CH-UserID":     fmt.Sprintf("%d", userID),
 		"Authorization": fmt.Sprintf("Token %s", authToken),
 	}
-	return &clubhouse
 }
 
 func (clubhouse Clubhouse) GetUserIDByUsername(username string) (string, error) {
