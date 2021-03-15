@@ -36,3 +36,10 @@ func getUserIDByUsernameOfNotExistingUserTest(t *testing.T) {
 	_, err := clubhouse.GetUserIDByUsername(notExistingUsername)
 	assert.NotEqual(t, nil, err)
 }
+
+func getUserIDByUsernameTest(t *testing.T) {
+	_, err := clubhouse.GetUserIDByUsername("yeon.gyu.kim")
+	assert.Equal(t, nil, err)
+}
+
+// GetUserIDByUsername tests
