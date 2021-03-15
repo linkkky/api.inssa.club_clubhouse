@@ -17,6 +17,15 @@ func extractUserIDByUsername(users []interface{}, username string) (string, erro
 	return "", fmt.Errorf("No such user")
 }
 
+func extractUserListFromSearchResult(result map[string]interface{}) ([]interface{}, error) {
+	for key, value := range result {
+		if key == "users" {
+			return value.([]interface{}), nil
+		}
+	}
+	return nil, fmt.Errorf(fmt.Sprintf("Error while retrieving the profile. %+v", result))
+}
+
 type Clubhouse struct {
 	uuid                  string
 	userID                int
