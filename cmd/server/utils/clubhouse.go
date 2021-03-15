@@ -35,6 +35,9 @@ func (clubhouse Clubhouse) request(req *http.Request) (map[string]interface{}, e
 	if err != nil {
 		return nil, err
 	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("%s", resp.Status)
+	}
 	return responseBodyToMap(resp.Body)
 }
 
