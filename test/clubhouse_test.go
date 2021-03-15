@@ -13,7 +13,7 @@ const notExistingUsername = "notexistinguser!@#$%^&*()(*&^%$#@!"
 
 var clubhouse = utils.SingletonClubhouse()
 
-func setupClubhouseProperly() {
+func setupClubhouse() {
 	UUID := configs.Envs["CLUBHOUSE_ACCOUNT_UUID"]
 	USER_ID, err := strconv.Atoi(configs.Envs["CLUBHOUSE_ACCOUNT_USER_ID"])
 	if err != nil {
@@ -29,7 +29,7 @@ func getUserIDByUsernameWithWrongAuthTokenTest(t *testing.T) {
 	clubhouse.SetAccount("123", 123, "123")
 	_, err := clubhouse.GetUserIDByUsername("yeon.gyu.kim")
 	assert.NotEqual(t, nil, err)
-	setupClubhouseProperly()
+	setupClubhouse()
 }
 
 func getUserIDByUsernameOfNotExistingUserTest(t *testing.T) {
@@ -48,7 +48,7 @@ func getProfileByUserIDWithWrongAuthTokenTest(t *testing.T) {
 	clubhouse.SetAccount("123", 123, "123")
 	_, err := clubhouse.GetProfileByUserID("711498010")
 	assert.NotEqual(t, nil, err)
-	setupClubhouseProperly()
+	setupClubhouse()
 }
 
 func getProfileByUserIDOfNotExistingUserTest(t *testing.T) {
@@ -67,7 +67,7 @@ func getProfileByUsernameWithWrongAuthTokenTest(t *testing.T) {
 	clubhouse.SetAccount("123", 123, "123")
 	_, err := clubhouse.GetProfileByUserID("yeon.gyu.kim")
 	assert.NotEqual(t, nil, err)
-	setupClubhouseProperly()
+	setupClubhouse()
 }
 
 func getProfileByUsernameOfNotExistingUserTest(t *testing.T) {
