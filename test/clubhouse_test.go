@@ -43,3 +43,10 @@ func getUserIDByUsernameTest(t *testing.T) {
 }
 
 // GetUserIDByUsername tests
+
+func getProfileByUserIDWithWrongAuthTokenTest(t *testing.T) {
+	clubhouse.SetAccount("123", 123, "123")
+	_, err := clubhouse.GetProfileByUserID("711498010")
+	assert.NotEqual(t, nil, err)
+	setupClubhouseProperly()
+}
