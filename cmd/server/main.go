@@ -17,7 +17,10 @@ import (
 )
 
 func setupRoutes(engine *gin.Engine) {
-	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	IS_ENABLE_SWAGGER := configs.Envs["IS_ENABLE_SWAGGER"]
+	if IS_ENABLE_SWAGGER == "true" {
+		engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
 	for _, controller := range routes.GetRoutes() {
 		engine.Handle(controller.Method, controller.Path, controller.Handler)
