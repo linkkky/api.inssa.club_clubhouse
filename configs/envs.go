@@ -16,7 +16,7 @@ func getEnv(envName string, defaultValue string) string {
 
 // Envs has values for environment variables and the defaults for them
 var Envs = map[string]string{
-	"GIN_MODE":                     getEnv("GIN_MODE", "debug"),
+	"IS_SERVERLESS":                getEnv("IS_SERVERLESS", "false"),
 	"SERVER_PORT":                  getEnv("PORT", "8080"),
 	"MONGO_URI":                    getEnv("MONGO_URI", "mongodb://localhost:27017"),
 	"CLUBHOUSE_ACCOUNT_UUID":       getEnv("CLUBHOUSE_ACCOUNT_UUID", "E656C404-FC76-43F1-816D-2C4F15C4931E"),
