@@ -1,0 +1,36 @@
+org: yeongyu
+app: inssa-club
+service: clubhouse-profile
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: go1.x
+  lambdaHashingVersion: 20201221
+  stage: production
+  apiGateway:
+    minimumCompressionSize: 1024
+  iamRoleStatements:
+      - Effect: Allow
+        Action: s3:ListBucket
+        Resource:
+            - "arn:aws:s3:::clubhouse-profile"
+  region: ap-northeast-1
+  profile: lambda
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+functions:
+  main:
+    handler: bin/main
+    events:
+      - http:
+          path: /profile
+          method: get
+    environment:
+        GIN_MODE: release
