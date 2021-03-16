@@ -33,4 +33,4 @@ functions:
           path: /profile
           method: get
     environment:
-        GIN_MODE: release
+        IS_SERVERLESS: true
