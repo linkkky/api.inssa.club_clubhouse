@@ -49,9 +49,10 @@ func setupDocuments() {
 
 func runServer(engine *gin.Engine) {
 	MODE := configs.Envs["GIN_MODE"]
+	IS_SERVERLESS := configs.Envs["IS_SERVERLESS"]
 	PORT := ":" + configs.Envs["SERVER_PORT"]
 
-	if MODE == "release" {
+	if IS_SERVERLESS == "true" {
 		gateway.ListenAndServe(PORT, engine)
 	} else {
 		engine.Run(PORT)
