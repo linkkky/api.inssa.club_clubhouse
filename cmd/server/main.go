@@ -2,13 +2,13 @@ package main
 
 import (
 	"inssa_club_clubhouse_backend/cmd/server/docs"
-	_ "inssa_club_clubhouse_backend/cmd/server/docs"
 	"inssa_club_clubhouse_backend/cmd/server/middlewares"
 	"inssa_club_clubhouse_backend/cmd/server/routes"
 	"inssa_club_clubhouse_backend/cmd/server/utils"
 	"inssa_club_clubhouse_backend/configs"
 	"strconv"
 
+	"github.com/apex/gateway"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/sirupsen/logrus"
@@ -44,6 +44,17 @@ func setupDocuments() {
 	docs.SwaggerInfo.Schemes = []string{"https"}
 }
 
+func runServer(engine *gin.Engine) {
+	MODE := configs.Envs["GIN_MODE"]
+	PORT := ":" + configs.Envs["SERVER_PORT"]
+
+	if MODE == "release" {
+		gateway.ListenAndServe(PORT, engine)
+	} else {
+		engine.Run(PORT)
+	}
+}
+
 func main() {
 	configs.InitDB()
 	engine := gin.Default()
@@ -51,5 +62,5 @@ func main() {
 	middlewares.Setup(engine)
 	setupDocuments()
 	setupRoutes(engine)
-	engine.Run()
+	runServer(engine)
 }
