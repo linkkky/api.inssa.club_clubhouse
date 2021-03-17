@@ -10,6 +10,9 @@ build:
 test:
 	go test ./... -v
 
+docs:
+	cd cmd/server/;swag init
+
 clean:
 	rm -rf ./bin
 
