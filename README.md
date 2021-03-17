@@ -2,7 +2,7 @@
 
 api.inssa.club의 clubhouse 관련 서비스입니다.  
 serverless framework를 기반으로하여 serverless.yml 이 작성되어 있습니다.  
-로컬에서 debug 모드 및 release 모드 serverless 환경에서 apex gateway를 통한 release 모드를 지원합니다.  
+로컬에서 debug 모드 및 release 모드 serverless 환경에서 apex gateway를 통한 release 모드를 지원합니다.
 
 ## 프로젝트 구조
 
@@ -14,7 +14,7 @@ serverless framework를 기반으로하여 serverless.yml 이 작성되어 있�
 
 ## 환경 변수
 
-실행에 필요한 환경 변수는 [configs/envs.go](./configs/envs.go) 에서 확인 할 수 있습니다.  
+실행에 필요한 환경 변수는 [configs/envs.go](./configs/envs.go) 에서 확인 할 수 있습니다.
 
 ## <a name="execution"></a>실행
 
@@ -54,3 +54,12 @@ go build -ldflags="-s -w" -o bin/main cmd/server/main.go
 ### 직접 문서 파일 얻기
 
 코드를 실행하지 않고 직접 json이나 yaml로 된 문서 파일을 얻고 싶다면, [cmd/server/docs](./cmd/server/docs) 에서 docs.json과 docs.yaml을 얻을 수 있습니다.
+
+### 문서 업데이트 하기
+
+본 프로젝트의 문서화는 swagger, gin-swagger 을 통해 진행되었습니다. 따라서 자동화된 방식으로 문서 생성을 합니다.  
+변경사항이 생겼다면 다음의 명령어로 진행 할 수 있습니다.
+
+```sh
+make docs
+```
