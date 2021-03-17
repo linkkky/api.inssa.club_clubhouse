@@ -5,11 +5,12 @@ serverless framework를 기반으로하여 serverless.yml 이 작성되어 있�
 로컬에서 debug 모드 및 release 모드 serverless 환경에서 apex gateway를 통한 release 모드를 지원합니다.  
 
 ## 프로젝트 구조
- - cmd/server
-    - 메인 프로젝트 디렉토리
-    - 그 안의 구조는 생략
- - configs
-    - db 연결, 환경변수와 같은 설정 파일이 담겨있는 곳
+
+-   cmd/server
+    -   메인 프로젝트 디렉토리
+    -   그 안의 구조는 생략
+-   configs
+    -   환경변수와 같은 설정 파일이 담겨있는 곳
 
 ## 환경 변수
 실행에 필요한 환경 변수는 [configs/envs.go](./configs/envs.go) 에서 확인 할 수 있습니다.  
