@@ -1,4 +1,5 @@
-# clubhouse-api.inssa.club
+# api.inssa.club_clubhouse
+
 api.inssa.club의 clubhouse 관련 서비스입니다.  
 serverless framework를 기반으로하여 serverless.yml 이 작성되어 있습니다.  
 로컬에서 debug 모드 및 release 모드 serverless 환경에서 apex gateway를 통한 release 모드를 지원합니다.  
