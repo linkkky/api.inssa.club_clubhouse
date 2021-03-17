@@ -69,7 +69,6 @@ definitions:
               type: object
             type: array
           displayname:
-            example: "null"
             type: string
           instagram:
             example: yeon.gyu.kim
@@ -105,7 +104,6 @@ definitions:
             example: "2021-02-08T15:03:08.132077+00:00"
             type: string
           twitter:
-            example: "null"
             type: string
           url:
             example: https://www.joinclubhouse.com/@yeon.gyu.kim

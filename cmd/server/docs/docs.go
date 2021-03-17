@@ -149,8 +149,7 @@ var doc = `{
                             }
                         },
                         "displayname": {
-                            "type": "string",
-                            "example": "null"
+                            "type": "string"
                         },
                         "instagram": {
                             "type": "string",
@@ -198,8 +197,7 @@ var doc = `{
                             "example": "2021-02-08T15:03:08.132077+00:00"
                         },
                         "twitter": {
-                            "type": "string",
-                            "example": "null"
+                            "type": "string"
                         },
                         "url": {
                             "type": "string",
