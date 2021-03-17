@@ -7,6 +7,9 @@ build:
 	go mod tidy
 	env GOOS=linux go build -ldflags="-s -w" -o bin/main cmd/server/main.go
 
+test:
+	go test ./... -v
+
 clean:
 	rm -rf ./bin
 
