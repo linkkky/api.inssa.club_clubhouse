@@ -60,7 +60,7 @@ func runServer(engine *gin.Engine) {
 
 func main() {
 	utils.InitDB()
-	engine := gin.Default()
+	engine := gin.New()
 	setupClubhouseAccount()
 	middlewares.Setup(engine)
 	setupDocuments()
