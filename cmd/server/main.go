@@ -48,7 +48,6 @@ func setupDocuments() {
 }
 
 func runServer(engine *gin.Engine) {
-	MODE := configs.Envs["GIN_MODE"]
 	IS_SERVERLESS := configs.Envs["IS_SERVERLESS"]
 	PORT := ":" + configs.Envs["SERVER_PORT"]
 
@@ -60,7 +59,7 @@ func runServer(engine *gin.Engine) {
 }
 
 func main() {
-	configs.InitDB()
+	utils.InitDB()
 	engine := gin.Default()
 	setupClubhouseAccount()
 	middlewares.Setup(engine)
