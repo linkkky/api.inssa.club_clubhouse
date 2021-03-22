@@ -10,6 +10,7 @@ import (
 type ClubhouseProfile struct {
 	mgm.DefaultModel `bson:",inline"`
 	UserID           uint64                 `json:"user_id" bson:"user_id"`
+	Username         string                 `json:"username" bson:"username"`
 	Profile          map[string]interface{} `json:"profile" bson:"profile"`
 }
 
@@ -19,6 +20,7 @@ type ClubhouseProfileResponse struct {
 	CreatedAt time.Time `json:"created_at" example:"2021-03-15T15:20:18.066663Z"`
 	UpdatedAt time.Time `json:"updated_at" example:"2021-03-15T15:20:18.066664Z"`
 	UserID    int       `json:"user_id" example:"711498010"`
+	Username  string    `json:"username" example:"yeon.gyu.kim"`
 	Profile   struct {
 		Name         string `json:"name" example:"YeonGyu Kim"`
 		Username     string `json:"username" example:"yeon.gyu.kim"`
@@ -68,6 +70,7 @@ func profileCleaner(profile map[string]interface{}, fields []string) {
 func NewClubhouseProfile(profile map[string]interface{}) *ClubhouseProfile {
 	clubhouseProfile := ClubhouseProfile{}
 	clubhouseProfile.UserID = uint64(profile["user_id"].(float64))
+	clubhouseProfile.Username = profile["username"].(string)
 	profileCleaner(profile, []string{"user_id", "follows_me", "invited_by_club", "is_blocked_by_network", "mutual_follows", "mutual_follows_count", "notification_type"})
 	clubhouseProfile.Profile = profile
 	return &clubhouseProfile
