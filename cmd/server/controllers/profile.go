@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"fmt"
 	"inssa_club_clubhouse_backend/cmd/server/models"
 	"inssa_club_clubhouse_backend/cmd/server/utils"
@@ -20,7 +21,7 @@ func getProfileFromDB(username string) (models.ClubhouseProfile, error) {
 		return models.ClubhouseProfile{}, err
 	}
 	if len(result) == 0 {
-		return models.ClubhouseProfile{}, fmt.Errorf("No such user")
+		return models.ClubhouseProfile{}, errors.New("no such user")
 	}
 	return result[0], nil
 }
@@ -28,6 +29,7 @@ func getProfileFromDB(username string) (models.ClubhouseProfile, error) {
 func getProfile(username string) (models.ClubhouseProfile, error) {
 	// get data from db
 	profileDocument, err := getProfileFromDB(username)
+	fmt.Println(err)
 	if err == nil {
 		updatedAt := profileDocument.UpdatedAt.Add(time.Hour * 2)
 		currentTime := time.Now()
