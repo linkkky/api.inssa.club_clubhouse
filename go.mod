@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/apex/gateway v1.1.2
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/joho/godotenv v1.3.0
 	github.com/kamva/mgm/v3 v3.1.0
