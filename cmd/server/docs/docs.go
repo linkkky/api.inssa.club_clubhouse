@@ -216,6 +216,10 @@ var doc = `{
                 "user_id": {
                     "type": "integer",
                     "example": 711498010
+                },
+                "username": {
+                    "type": "string",
+                    "example": "yeon.gyu.kim"
                 }
             }
         }

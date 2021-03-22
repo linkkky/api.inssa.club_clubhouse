@@ -39,9 +39,9 @@ func setupClubhouseAccount() {
 }
 
 func setupDocuments() {
-	docs.SwaggerInfo.Title = "clubhouse-api.inssa.club"
+	docs.SwaggerInfo.Title = "clubhouse.api.inssa.club"
 	docs.SwaggerInfo.Description = "The REST API for clubhouse service of api.inssa.club"
-	docs.SwaggerInfo.Host = "api.inssa.club"
+	docs.SwaggerInfo.Host = "clubhouse.api.inssa.club"
 	docs.SwaggerInfo.Version = "0.1"
 	docs.SwaggerInfo.BasePath = "/clubhouse"
 	docs.SwaggerInfo.Schemes = []string{"https"}

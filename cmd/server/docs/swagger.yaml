@@ -118,6 +118,9 @@ definitions:
       user_id:
         example: 711498010
         type: integer
+      username:
+        example: yeon.gyu.kim
+        type: string
     type: object
 info:
   contact: {}
