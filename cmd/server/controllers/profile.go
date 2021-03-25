@@ -14,6 +14,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func getProfileMapFromServer(username string) (map[string]interface{}, error) {
+	// if the cached data is not usable, query the data and cache it
+	clubhouse := utils.SingletonClubhouse()
+	profile, err := clubhouse.GetProfileByUsername(username)
+	if err != nil {
+		return nil, err
+	}
+	return profile, nil
+}
 
 func getProfileFromDB(username string) (*models.ClubhouseProfile, error) {
 	result := []models.ClubhouseProfile{}
