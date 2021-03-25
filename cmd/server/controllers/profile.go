@@ -14,14 +14,19 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func getProfileFromDB(username string) (models.ClubhouseProfile, error) {
+
+func getProfileFromDB(username string) (*models.ClubhouseProfile, error) {
 	result := []models.ClubhouseProfile{}
 	err := mgm.Coll(&models.ClubhouseProfile{}).SimpleFind(&result, bson.M{"username": username})
 	if err != nil {
-		return models.ClubhouseProfile{}, err
+		return nil, err
 	}
 	if len(result) == 0 {
-		return models.ClubhouseProfile{}, errors.New("no such user")
+		return nil, errors.New("no such user")
+	}
+	return &result[0], nil
+}
+
 func syncProfile(profileDocument *models.ClubhouseProfile) error {
 	recentProfile, err := getProfileMapFromServer(profileDocument.Username)
 	if err != nil {
