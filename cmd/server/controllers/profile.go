@@ -22,8 +22,14 @@ func getProfileFromDB(username string) (models.ClubhouseProfile, error) {
 	}
 	if len(result) == 0 {
 		return models.ClubhouseProfile{}, errors.New("no such user")
+func syncProfile(profileDocument *models.ClubhouseProfile) error {
+	recentProfile, err := getProfileMapFromServer(profileDocument.Username)
+	if err != nil {
+		return err
 	}
-	return result[0], nil
+	profileDocument.Profile = recentProfile
+	err = mgm.Coll(profileDocument).Update(profileDocument)
+	return err
 }
 
 func getProfile(username string) (models.ClubhouseProfile, error) {
