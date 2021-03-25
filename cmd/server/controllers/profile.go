@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"fmt"
 	"inssa_club_clubhouse_backend/cmd/server/models"
 	"inssa_club_clubhouse_backend/cmd/server/utils"
 	"net/http"
@@ -46,32 +45,35 @@ func syncProfile(profileDocument *models.ClubhouseProfile) error {
 	return err
 }
 
-func getProfile(username string) (models.ClubhouseProfile, error) {
+func getProfile(username string) (*models.ClubhouseProfile, error) {
 	// get data from db
 	profileDocument, err := getProfileFromDB(username)
-	fmt.Println(err)
-	if err == nil {
+
+	if err == nil { // if found the data from db
 		updatedAt := profileDocument.UpdatedAt.Add(time.Hour * 2)
 		currentTime := time.Now()
 		if currentTime.Before(updatedAt) { // if the document updated within 2 hours
 			return profileDocument, nil
+		} else { // if the document is old
+			err := syncProfile(profileDocument)
+			return profileDocument, err
 		}
+	} else { // if the cached data is not usable, query the data and cache it
+		profileMap, err := getProfileMapFromServer(username)
+		if err != nil {
+			logrus.Error(err)
+			return nil, err
+		}
+		profileDocument = models.NewClubhouseProfile(profileMap)
+		err = mgm.Coll(profileDocument).Create(profileDocument)
+		if err != nil {
+			logrus.Error(err)
+			return nil, err
+		}
+
+		return profileDocument, nil
+		// validate updated_at
 	}
-
-	// if the cached data is not usable, query the data and cache it
-	clubhouse := utils.SingletonClubhouse()
-	profile, err := clubhouse.GetProfileByUsername(username)
-	if err != nil {
-		logrus.Error(err)
-		return models.ClubhouseProfile{}, err
-	}
-	clubhouseProfile := models.NewClubhouseProfile(profile)
-
-	//save to db
-	err = mgm.Coll(clubhouseProfile).Create(clubhouseProfile)
-
-	return *clubhouseProfile, nil
-	// validate updated_at
 }
 
 // GetProfile godoc
