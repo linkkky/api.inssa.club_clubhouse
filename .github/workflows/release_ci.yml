@@ -62,12 +62,6 @@ jobs:
         name: Deploy
         runs-on: [self-hosted, production]
         steps:
-            - name: Login to ghcr using template
-              uses: docker/login-action@v1
-              with:
-                  registry: ghcr.io
-                  username: ${{ github.actor }}
-                  password: ${{ secrets.LINKKKY_PAT }}
             - name: Login to ghcr using commands
               run: echo "${{secrets.LINKKKY_PAT}}" | docker login ghcr.io --username ${{ github.actor }} --password-stdin
             - name: Rolling update the service
