@@ -1,3 +1,4 @@
+![Release CI Status](https://github.com/linkkky/api.inssa.club_clubhouse/actions/workflows/release_ci.yml/badge.svg)
 # api.inssa.club_clubhouse
 
 api.inssa.club의 clubhouse 관련 서비스입니다.  
