@@ -125,7 +125,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /profile/:username:
+  /profile/{username}:
     get:
       consumes:
       - application/json

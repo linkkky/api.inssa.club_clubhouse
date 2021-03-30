@@ -24,7 +24,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/profile/:username": {
+        "/profile/{username}": {
             "get": {
                 "description": "Retrieve a profile from clubhouse by given username",
                 "consumes": [
