@@ -84,7 +84,7 @@ func getProfile(username string) (*models.ClubhouseProfile, error) {
 // @Param username path string true "Username"
 // @Success 200 {object} models.ClubhouseProfileResponse
 // @Failure 404
-// @Router /profile/:username [get]
+// @Router /profile/{username} [get]
 func (ctrler *Controller) GetProfile(c *gin.Context) {
 	USERNAME := c.Param("username")
 	clubhouseProfile, err := getProfile(USERNAME)
