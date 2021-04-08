@@ -1,15 +1,22 @@
 ### Bulder
 FROM golang:1.16.3-alpine3.13 as builder
-RUN apk update; apk add git; apk add ca-certificates; apk add upx
+
+RUN apk update; \
+    apk add git ca-certificates upx
 
 WORKDIR /usr/src/app
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod tidy
+# install dependencies
+
 COPY . .
 
-ENV GO111MODULE=on
-
-RUN go mod tidy && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -ldflags="-s -w" -o bin/main cmd/server/main.go && \
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -ldflags="-s -w" -o bin/main cmd/server/main.go; \
     upx --best --lzma bin/main
+# compile & pack
 
 ### Executable Image
 FROM scratch
