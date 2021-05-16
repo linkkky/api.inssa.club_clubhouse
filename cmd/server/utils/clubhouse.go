@@ -18,7 +18,7 @@ func extractUserIDByUsername(users []interface{}, username string) (string, erro
 			return user_info["user_id"].(string), nil
 		}
 	}
-	return "", fmt.Errorf("No such user")
+	return "", fmt.Errorf("no such user")
 }
 
 func extractUserListFromSearchResult(result map[string]interface{}) ([]interface{}, error) {
